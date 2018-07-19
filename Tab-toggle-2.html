@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tab Toggle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .header > .tab {
+            float: left;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            background-color: #ddd;
+            cursor: pointer;
+        }
+        .header::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .content > .panel {
+            width: 350px;
+            height: 350px;
+            border: 1px solid #ccc;
+            display: none;
+        }
+        .header > .active,
+        .content > .active {
+            background-color: #fff;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="mode-tab">
+    <div class="header">
+        <div class="tab active">1</div>
+        <div class="tab">2</div>
+        <div class="tab">3</div>
+        <div class="tab">4</div>
+    </div>
+    <div class="content">
+        <div class="panel active">panel1</div>
+        <div class="panel">panel2</div>
+        <div class="panel">panel3</div>
+        <div class="panel">panel4</div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.querySelectorAll(".mode-tab .tab").forEach(function(node){
+        node.addEventListener("click",function(){
+            var i = 0;
+            this.parentElement.querySelectorAll(".tab").forEach(function(tab,index){
+                tab.classList.remove("active");
+                if(node === tab){
+                    i = index;
+                }
+            })
+            this.classList.add("active");
+            this.parentElement.nextElementSibling.querySelectorAll(".panel").forEach(function(panel,index){
+                panel.classList.remove("active");
+                if(i === index){
+                    panel.classList.add("active");
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>
