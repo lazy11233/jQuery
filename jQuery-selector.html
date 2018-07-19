@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery的选择器操作</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            border: 1px solid #bfa;
+            padding: 10px;
+        }
+
+        .container {
+            width: 60%;
+            margin: 100px auto;
+        }
+
+        .container > div {
+            margin: 20px 0;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="container">
+        <div class="box">box1</div>
+        <div class="box">box2
+            <ul class="box">ul</ul>
+        </div>
+        <div class="box">box3</div>
+        <div class="box">box4</div>
+        <div class="box box5">box5</div>
+        <div class="box">box6</div>
+        <div class="box-tab">
+            <div class="box">
+                box7
+                <div class="little-box">box8</div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(".box").eq(1).css("background-color", "pink"); //box2的背景颜色是粉色
+    $(".box").eq(1).next().css("background-color", "skyblue");//box3的背景颜色是天蓝色
+    $(".box").eq(1).prev().css("background-color", "green");//box1的背景颜色是绿色
+    $(".box5").nextAll().css("font-size", "30px"); //box5之后的兄弟元素字体大小30px
+    $(".box5").prevAll().css("font-size", "20px"); //box5之前的兄弟元素字体大小20px
+    $(".box5").siblings().css("border", "1px solid #ccc");//处理box5之外的都有边框。
+    $(".box5").parent().css("background-color","#eee");//container的背景颜色为灰色
+    $(".box5").parents(".container").css("color","#aaa");//所有祖先元素中，再选择container的字体颜色为灰色。
+    $(".box-tab").children().css("border","1px dotted black");
+    $(".box-tab").find(".little-box").css("color","black");
+    $("div").filter(".box5").css("font-family","Georgia");
+    $(".box").has("ul").css("color","red");
+    var isBox = $(".box-tab").is("div");
+    console.log(isBox);//true
+
+</script>
+</body>
+</html>
