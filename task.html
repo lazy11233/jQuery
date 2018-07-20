@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>代理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        body {
+            font: 12px/1.5 Arial, Verdana;
+            color: #666;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .container {
+            width: 800px;
+            margin: 40px auto;
+        }
+
+        .goods {
+            margin-left: -37px;
+        }
+
+        .goods > .res {
+            position: relative;
+            width: 200px;
+            float: left;
+            margin-left: 37px;
+            margin-top: 20px;
+            border: 1px solid #eee;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            padding: 20px 20px 10px;
+        }
+
+        .goods > .res .img {
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+        }
+
+        .cover {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            display:  none;
+        }
+
+        .cover > a {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .cover::before {
+            content: "";
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        .btn {
+            border: 1px solid #c81623;
+            color: #c81623;
+            padding: 10px 15px;
+            background-color: #fff;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            margin: 20px 20px 0 0;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        div.price {
+            margin-top: 10px;
+            color:#c81623;
+            text-align: left;
+        }
+    </style>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>珠宝首饰</h1>
+    <ul class="goods clearfix">
+        <li class="res">
+            <div class="cover">
+                <a href="javascript:void(0)" class="btn btn-del">删除</a>
+            </div>
+            <a href="javascript:void(0)">
+                     <span class="img">
+                        <img src="https://picsum.photos/200/200/?image=3" alt="商品">
+                    </span>
+                <div>和田玉</div>
+                <div class="price">￥1699.00</div>
+            </a>
+        </li>
+        <li class="res">
+            <div class="cover">
+                <a href="javascript:void(0)" class="btn btn-del">删除</a>
+            </div>
+            <a href="javascript:void(0)">
+                     <span class="img">
+                        <img src="https://picsum.photos/200/200/?image=3" alt="商品">
+                    </span>
+                <div>路路通吊坠</div>
+                <div class="price">￥699.00</div>
+            </a>
+        </li>
+        <li class="res">
+            <div class="cover">
+                <a href="javascript:void(0)" class="btn btn-del">删除</a>
+            </div>
+            <a href="javascript:void(0)">
+                    <span class="img">
+                        <img src="https://picsum.photos/200/200/?image=3" alt="商品">
+                    </span>
+                <div>藏美千足金</div>
+                <div class="price">￥99.00</div>
+            </a>
+        </li>
+    </ul>
+    <button class="btn btn-add">添加</button>
+    <button class="btn btn-edit">编辑</button>
+</div>
+<script>
+    $(function () {
+        $(".btn-add").on("click",function () {
+            $(".cover").css("display","none");
+            var products = getData();
+            $.each(products,function(index,node){
+                $(genertor(node)).appendTo($("ul.goods"));
+            });
+        });
+
+        $(".btn-edit").on("click",function () {
+            $(".cover").toggle();
+        });
+
+        $(".goods").on("click",".btn-del",function () {
+            $(this).parents(".res").remove();
+        });
+    });
+
+    function getData(){
+        var rlt = [];
+        for(var i = 0; i < 3; i++){
+            var randNum = Math.floor(Math.random() * 100);
+            var res = {
+                img: "https://picsum.photos/200/200/?image=" + randNum,
+                name: "珂兰 黄金手 猴哥款",
+                price: "￥" + randNum
+            };
+            rlt.push(res);
+        }
+        return rlt;
+    }
+
+    function genertor(res){
+        var html = "";
+        html += "<li class='res'>";
+        html += "<div class='cover'><a href='javascript:void(0)' class='btn btn-del'>删除</a></div>";
+        html += "<a href='javascript:void(0)'><span class='img'>";
+        html += "<img src='"+ res.img +"' alt='商品'></span>";
+        html += "<div>"+ res.name +"</div>";
+        html += "<div class='price'>" + res.price + "</div></a></li>";
+        return html;
+    }
+</script>
+</body>
+</html>
