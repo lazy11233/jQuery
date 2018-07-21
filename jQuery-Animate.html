@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery-Animate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            position: relative;
+            border: 1px solid #ccc;
+            width: 400px;
+            height: 400px;
+        }
+
+        .ball {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: pink;
+        }
+
+        .btn {
+            background-color: #fff;
+            border: 1px solid #c81623;
+            color: #c81623;
+            border-radius: 4px;
+            padding: 10px 15px;
+            margin: 20px 10px 10px 0;
+        }
+    </style>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+<button class="btn" id="btn-01">show</button>
+<button class="btn" id="btn-02">hide</button>
+<button class="btn" id="btn-03">slideUp</button>
+<button class="btn" id="btn-04">slideDown</button>
+<button class="btn" id="btn-05">slideToggle</button>
+<button class="btn" id="btn-06">fadeIn</button>
+<button class="btn" id="btn-07">fadeOut</button>
+<button class="btn" id="btn-08">animate</button>
+<div class="container">
+    <div class="ball"></div>
+</div>
+<script>
+    $(function () {
+        var $ball = $(".ball");
+        /* 点击show后小球显示 */
+        $("#btn-01").on("click",function () {
+            $ball.show("slow");
+        });
+        /* 点击hide后小球隐藏 */
+        $("#btn-02").on("click",function () {
+            $ball.hide("slow");
+        });
+        /* 点击slideUp上划 */
+        $("#btn-03").on("click",function () {
+            $ball.slideUp();
+        });
+        /* 点击slideDown下划 */
+        $("#btn-04").on("click",function () {
+            $ball.slideDown();
+        });
+        /* 点击slideToggle上下划切换显示 */
+        $("#btn-05").on("click",function () {
+            $ball.slideToggle();
+        });
+        /* 点击fadeIn显示 */
+        $("#btn-06").on("click",function () {
+            $ball.fadeIn();
+        });
+        /* 点击fadeOut隐藏 */
+        $("#btn-07").on("click",function () {
+            $ball.fadeOut();
+        });
+        /* animate自定义动画 */
+        $("#btn-08").on("click",function () {
+            $ball.animate({
+                top: "+=300",
+                left: "+=300"
+            },5000,function(){
+                console.log("自定义动画完成");
+            })
+        })
+    });
+</script>
+</body>
+</html>
