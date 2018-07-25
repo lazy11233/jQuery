@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>瀑布流布局</title>
+    <style>
+        .waterfall {
+            position: relative;
+            width: 80%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .waterfall>img {
+            width: 100px;
+            margin: 10px;
+            position: absolute;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="waterfall">
+        <img src="http://via.placeholder.com/100x150" alt="100*150">
+        <img src="http://via.placeholder.com/100x70" alt="100*70">
+        <img src="http://via.placeholder.com/100x100" alt="100*100">
+        <img src="http://via.placeholder.com/100x250" alt="100*250">
+        <img src="http://via.placeholder.com/100x80" alt="100x80">
+        <img src="http://via.placeholder.com/100x90" alt="100x90">
+        <img src="http://via.placeholder.com/100x120" alt="100x120">
+        <img src="http://via.placeholder.com/100x210" alt="100x210">
+        <img src="http://via.placeholder.com/100x230" alt="100x230">
+    </div>
+    <script>
+        var waterfall = {
+            init: function () {
+                this.colHeightArray = [];
+                this.imgWidth = $(".waterfall>img").outerWidth(true);
+                this.colCount = Math.floor($(".waterfall").width() / this.imgWidth);
+                for (var i = 0; i < this.colCount; i++) {
+                    this.colHeightArray[i] = 0;
+                }
+                this.bind();
+            },
+            bind: function () {
+                var _this = this;
+                $(".waterfall img").on("load", function () {
+                    _this.layout($(this));
+                });
+                $(window).on("resize", function () {
+                    $("waterfall>img").each(function () {
+                        _this.layout($(this));
+                    })
+                })
+            },
+            layout: function ($node) {
+                var _this = this;
+                var minValue = _this.colHeightArray[0];
+                var minIndex = 0;
+                
+                /* 找到数组中的最小值记录下来 */
+                for(var i = 0; i < _this.colCount; i++){
+                    if(_this.colHeightArray[i] < minValue){
+                        minValue = _this.colHeightArray[i];
+                        minIndex = i;
+                    }
+                }
+
+                $node.css({
+                    left: minIndex * _this.imgWidth,
+                    top: minValue
+                });
+                _this.colHeightArray[minIndex] += $node.outerHeight(true);
+
+            }
+        }
+        waterfall.init();
+    </script>
+</body>
+</html>
